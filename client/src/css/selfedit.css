@@ -1,0 +1,49 @@
+#avatar {
+    border-radius: 50%;
+}
+
+#userbox {
+    background-color: #333;
+    border-radius: 17px;
+    font-size: 1.3rem;
+    box-shadow: 2px 2px 0px 2px #04AA6D;
+}
+
+input {
+    border: 1px solid;
+    border-color: black;
+    border-radius: 15px;
+    background: #00000069;
+    color: white;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 250px;
+    float: right;
+}
+
+#inpAvatar{
+    width: 100%;
+    padding-left: 0px;
+}
+#edit {
+    padding: 8px 80px;
+    border-radius: 20px;
+    background-color: #292929;
+}
+
+#edit:hover {
+    background-color: #111;
+}
+
+#subButton {
+    padding: 8px 25px;
+    width: 100%;
+    border-radius: 4px;
+    border: none;
+    background-color: #04AA6D;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s all;
+}

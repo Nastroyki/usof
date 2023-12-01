@@ -1,0 +1,135 @@
+.new-post-form {
+    margin: 20px;
+}
+
+.form-post-section {
+    width: 100%;
+}
+
+.post-input {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1.2rem;
+    resize: none;
+    background-color: unset;
+    color: black;
+}
+
+.post-textarea {
+    resize: none;
+    overflow: hidden;
+    max-height: none;
+    min-height: 200px;
+    font-size: medium;
+}
+
+
+.tags-choice {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 10px 0;
+    font-size: small;
+}
+
+.tags-choice .tag {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #eeeeee;
+    cursor: pointer;
+    flex: 1 200px;
+    margin: 5px;
+}
+
+.tag-title {
+    font-size: medium;
+    font-weight: 600;
+    margin: 0;
+}
+
+.move-input {
+    float: none;
+    background-color: inherit;
+    border: none;
+    color: black;
+    font-size: medium;
+    padding-left: 0px;
+    width: 100%;
+    border-radius: 0px;
+}
+
+.move-input:focus {
+    outline: none;
+
+}
+
+.choisen-tags {
+    margin-bottom: 10px;
+}
+
+.choisen-tag {
+    display: inline;
+    background-color: #04AA6D;
+    color: white;
+    padding: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 5px;
+    border-radius: 3px;
+    
+    cursor: pointer;
+}
+
+.choisen-tag:hover {
+    background-color: #0c9d68;
+}
+
+.new-tag-wrap {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #eeeeee;
+    margin-top: 10px;
+    max-width: 500px;
+    display: none;
+}
+
+.np-button {
+    font-weight: 600;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px;
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: medium;
+}
+.np-button:hover {
+    background-color: #0c9d68;
+}
+
+.cancel-tag-button {
+    background-color: rgb(209, 62, 57);
+    float: right;
+}
+
+.cancel-tag-button:hover {
+    background-color: rgb(189, 51, 46);
+}
+
+.cancel-post-button {
+    background-color: rgb(209, 62, 57);
+    margin-left: 20px;
+}
+
+.cancel-post-button:hover {
+    background-color: rgb(189, 51, 46);
+}
+
+.form-new-post-section {
+    margin-top: 10px;
+}
