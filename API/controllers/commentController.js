@@ -55,9 +55,6 @@ router.get('/:id/likes/:user_id', async (req, res) => {
 router.get('/:id/answers', async (req, res) => {
     try {
         const commentAnswers = await CommentAnswer.findByCommentId(req.params.id);
-        if(commentAnswers.length == 0){
-            return res.status(404).send("Comment answers not found");
-        }
         res.status(200).json(commentAnswers);
     } catch (err) {
         console.log(err);
@@ -73,7 +70,7 @@ router.post('/:id/answer', auth, async (req, res) => {
         }
 
         const commentAnswer = await CommentAnswer.save({
-            user_id: req.user.id,
+            user_id: req.user.user_id,
             comment_id: req.params.id,
             publish_date: new Date(),
             content

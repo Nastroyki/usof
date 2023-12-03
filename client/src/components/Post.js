@@ -5,7 +5,7 @@ import PostLikes from './PostLikes'
 
 const Post = (props) => {
     let date = new Date(props.post.publish_date)
-    let strDate = date.getDate() + "." + date.getMonth() + "." + date.getFullYear()
+    let strDate = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear()
     let status = props.post.status
     let color = "#04AA6D"
     if (status == "active") {
@@ -51,7 +51,7 @@ const Post = (props) => {
                 {props.post.tags.length > 0 ?
                     <div className="post-tags">
                         {props.post.tags.map((tag) => (
-                            <div className="post-tag">
+                            <div className="post-tag" key={tag.id}>
                                 <div className="post-tag-name">
                                     {tag.title}
                                 </div>

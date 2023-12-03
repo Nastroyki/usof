@@ -43,10 +43,7 @@ router.get('/:id', async (req, res) => {
 
 router.get('/:id/comments', async (req, res) => {
     try {
-        const comments = await Comment.findByPostId(req.params.id);
-        if (comments.length == 0) {
-            return res.status(404).send("Comments not found");
-        }
+        let comments = await Comment.findByPostId(req.params.id);
         res.status(200).json(comments);
     } catch (err) {
         console.log(err);
@@ -77,9 +74,6 @@ router.post('/:id/comments', auth, async (req, res) => {
 router.get('/:id/tags', async (req, res) => {
     try {
         let tags = await PostTag.findByPostId(req.params.id);
-        if (tags.length == 0) {
-            tags = [];
-        }
         res.status(200).json(tags);
     } catch (err) {
         console.log(err);

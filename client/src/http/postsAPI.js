@@ -39,3 +39,9 @@ export const getPostComments = async (post_id) => {
     const { data } = await API.get(`api/posts/${post_id}/comments`)
     return data
 }
+
+export const newComment = async (post_id, content) => {
+    const { data } = await API.post(`api/posts/${post_id}/comments`, { content })
+    return data
+}
+
