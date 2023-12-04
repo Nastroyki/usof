@@ -19,3 +19,8 @@ export const getTag = async (id) => {
     const { data } = await API.get(`api/tags/${id}`)
     return data
 }
+
+export const deleteTag = async (id) => {
+    const { data } = await API.delete(`api/tags/${id}`)
+    return data
+}

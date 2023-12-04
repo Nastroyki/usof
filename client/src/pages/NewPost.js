@@ -128,7 +128,7 @@ const NewPost = () => {
                     type="text"
                     name="postTitle"
                     placeholder="Enter title"
-                    maxLength={50}
+                    maxLength={100}
                     value={title}
                     onChange={e => setTitle(e.target.value)}
                 />

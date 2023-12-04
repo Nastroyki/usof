@@ -46,7 +46,7 @@ const Post = (props) => {
         if (window.confirm("Are you sure you want to delete this post?")) {
             deletePost(props.post.id)
         }
-        window.location.reload()
+        window.location.href = "/"
     }
 
     let goToUserPage = (event) => {

@@ -1,11 +1,10 @@
 import React, { useContext, useState } from 'react'
 import "../css/auth.css"
 import { useLocation, useNavigate } from 'react-router-dom'
-import { CONFIRM_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE } from '../utils/consts'
-import { confirm, getMe, login, registration } from '../http/authAPI'
+import { CONFIRM_ROUTE, FORGET_ROUTE, LOGIN_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE, RESET_ROUTE } from '../utils/consts'
+import { confirm, getMe, login, registration, resetPass, resetPassConfirm } from '../http/authAPI'
 import { observer } from 'mobx-react-lite'
 import { Context } from "../index";
-import { getUser } from '../http/userAPI'
 
 const Auth = observer(() => {
     const { user } = useContext(Context)
@@ -26,13 +25,19 @@ const Auth = observer(() => {
     const [confPassword, setConfPassword] = useState('')
     const [confCode, setConfCode] = useState('')
 
+    const [forgetEmail, setForgetEmail] = useState('')
+
+    const [resetEmail, setResetEmail] = useState('')
+    const [resetCode, setResetCode] = useState('')
+    const [resetPassword, setResetPassword] = useState('')
+    const [resetConfPass, setResetConfPass] = useState('')
+
     const [error, setError] = useState('')
 
 
     const signUp = async () => {
         try {
             const response = await registration(regLogin, regPassword, regConfPass, regEmail);
-            console.log(response);
             nav(CONFIRM_ROUTE)
             nav(0)
         } catch (e) {
@@ -48,7 +53,6 @@ const Auth = observer(() => {
     const conf = async () => {
         try {
             const data = await confirm(confLogin, confPassword, confCode);
-            console.log(data);
             const userData = await getMe();
             nav(POSTS_ROUTE)
             user.setUser(userData);
@@ -62,13 +66,32 @@ const Auth = observer(() => {
     const logIn = async () => {
         try {
             const data = await login(logLogin, logPassword);
-            console.log(data);
             const userData = await getMe();
             user.setUser(userData);
             nav(POSTS_ROUTE)
             user.setIsAuth(true);
         } catch (e) {
             document.getElementById('logerror').innerHTML = e.response.data;
+        }
+    }
+
+    const forget = async () => {
+        try {
+            const data = await resetPass(forgetEmail);
+            nav(RESET_ROUTE)
+            nav(0)
+        } catch (e) {
+            document.getElementById('forgeterror').innerHTML = e.response.data;
+        }
+    }
+
+    const reset = async () => {
+        try {
+            const data = await resetPassConfirm(resetEmail, resetPassword, resetCode);
+            nav(LOGIN_ROUTE)
+            nav(0)
+        } catch (e) {
+            document.getElementById('reseterror').innerHTML = e.response.data;
         }
     }
 
@@ -189,6 +212,92 @@ const Auth = observer(() => {
                             <span className="reminder">Already have an account? <a href="/login">Login</a></span>
                             <span className="reminder" >Want to register? <a href="/registration" style={{ fontSize: "1.2rem" }}>Register</a></span>
                         </form>
+                        : (path == FORGET_ROUTE) ?
+                            <form name="form" className="form">
+                                <h1>Forget Password</h1>
+                                <div className="form-section">
+                                    <input
+                                        className="input"
+                                        required
+                                        type="email"
+                                        name="forgetEmail"
+                                        placeholder="Enter your email"
+                                        size="20"
+                                        value={forgetEmail}
+                                        onChange={e => setForgetEmail(e.target.value)}
+                                    />
+                                </div>
+                                <input
+                                    id="regButton"
+                                    type="button"
+                                    value="Confirm"
+                                    onClick={forget}
+                                    className="button"
+                                />
+                                <p id="forgeterror"></p>
+                                <span className="reminder">Remember your password? <a href="/login">Login</a></span>
+                            </form>
+                        : (path == RESET_ROUTE) ?
+                            <form name="form" className="form">
+                                <h1>Reset Password</h1>
+                                <div className="form-section">
+                                    <input
+                                        className="input"
+                                        required
+                                        type="email"
+                                        name="resetEmail"
+                                        placeholder="Enter your email"
+                                        size="20"
+                                        value={resetEmail}
+                                        onChange={e => setResetEmail(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-section">
+                                    <input
+                                        className="input"
+                                        required
+                                        type="text"
+                                        name="resetCode"
+                                        placeholder="Enter your code"
+                                        size="20"
+                                        value={resetCode}
+                                        onChange={e => setResetCode(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-section">
+                                    <input
+                                        className="input"
+                                        required
+                                        type="password"
+                                        name="resetPassword"
+                                        placeholder="Enter your new password"
+                                        size="20"
+                                        value={resetPassword}
+                                        onChange={e => setResetPassword(e.target.value)}
+                                    />
+                                </div>
+                                <div className="form-section">
+                                    <input
+                                        className="input"
+                                        required
+                                        type="password"
+                                        name="resetConfPass"
+                                        placeholder="Confirm password"
+                                        size="20"
+                                        value={resetConfPass}
+                                        onChange={e => setResetConfPass(e.target.value)}
+                                    />
+                                </div>
+                                <input
+                                    id="regButton"
+                                    type="button"
+                                    value="Confirm"
+                                    onClick={reset}
+                                    className="button"
+                                />
+                                <p id="reseterror"></p>
+                                <span className="reminder">Remember your password? <a href="/login">Login</a></span>
+                            </form>
                         :
                         <form name="form" className="form">
                             <h1>Login</h1>
@@ -225,6 +334,7 @@ const Auth = observer(() => {
                             />
                             <p id="logerror"></p>
                             <span className="reminder">Don't have an account? <a href="/registration">Sign Up</a></span>
+                            <span className='reminder' >Forgot your password? <a href="/forget" style={{ fontSize: "1.2rem" }}>Reset it</a></span>
                         </form>
                 }
             </div>

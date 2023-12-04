@@ -1,0 +1,43 @@
+.tags-page {
+    margin: 20px;
+    margin-top: 55px;
+}
+
+.tags-input {
+    margin: 5px;
+    align-items: center;
+    border: 1px solid #838e99;
+    border-radius: 4px;
+    padding: 5px 5px 5px 5px;
+    min-height: 38px;
+    width: 99%;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.tag {
+    position: relative;
+}
+
+.tag-space {
+    height: 27px;
+}
+
+.delete-tag-button {
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 5px;
+    background-color: rgb(209, 62, 57);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.delete-tag-button:hover {
+    background-color: rgb(189, 51, 46);
+}

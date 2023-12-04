@@ -92,7 +92,7 @@ router.patch('/:id', auth, async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
     try {
-        await Tag.delete(req.params.id);
+        await Tag.deleteById(req.params.id);
         res.status(200).send("Tag deleted");
     } catch (err) {
         console.log(err);

@@ -49,3 +49,19 @@ export const getMe = async () => {
     const { data } = await API.get(`api/auth/me`)
     return data
 }
+
+export const resetPass = async (email) => {
+    const { data } = await API.post(`api/auth/password-reset`, {
+        email
+    })
+    return data
+}
+
+export const resetPassConfirm = async (email, password, code) => {
+    const { data } = await API.post(`api/auth/password-reset-confirm`, {
+        email,
+        password,
+        code
+    })
+    return data
+}

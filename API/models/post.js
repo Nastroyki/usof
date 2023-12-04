@@ -3,6 +3,7 @@ const db = require('./model').db;
 
 const Like = require('./like');
 const Comment = require('./comment');
+const PostTag = require('./postTag');
 
 // CREATE TABLE posts (
 //     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -133,8 +134,9 @@ class Post extends Model {
     }
 
     static async deleteById(id) {
-        Like.deleteByPostId(id);
-        Comment.deleteByPostId(id);
+        await Like.deleteByPostId(id);
+        await Comment.deleteByPostId(id);
+        await PostTag.deleteByPostId(id);
         await super.delete(id, 'posts');
     }
 

@@ -1,12 +1,12 @@
-import { LOGIN_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE, POST_ROUTE, ADMIN_ROUTE, CONFIRM_ROUTE, SELFEDIT_ROUTE, USER_ROUTE, USER_EDIT_ROUTE } from "./utils/consts";
+import { LOGIN_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE, POST_ROUTE, ADMIN_ROUTE, CONFIRM_ROUTE, SELFEDIT_ROUTE, USER_ROUTE, USER_EDIT_ROUTE, FORGET_ROUTE, RESET_ROUTE, TAGS_ROUTE } from "./utils/consts";
 import Auth from "./pages/Auth";
 import Posts from "./pages/Posts";
 import PostPage from "./pages/PostPage";
 import SelfEdit from "./pages/SelfEdit";
 import NewPost from "./pages/NewPost";
 import UserPage from "./pages/UserPage";
-import EditPost from "./components/EditPost";
 import EditUser from "./pages/EditUser";
+import Tags from "./pages/Tags";
 
 export const publicRoutes = [
     {
@@ -22,6 +22,14 @@ export const publicRoutes = [
         Component: Auth
     },
     {
+        path: FORGET_ROUTE,
+        Component: Auth
+    },
+    {
+        path: RESET_ROUTE,
+        Component: Auth
+    },
+    {
         path: POSTS_ROUTE,
         Component: Posts
     },
@@ -32,6 +40,10 @@ export const publicRoutes = [
     {
         path: USER_ROUTE + '/:id',
         Component: UserPage
+    },
+    {
+        path: TAGS_ROUTE,
+        Component: Tags
     }
 ]
 

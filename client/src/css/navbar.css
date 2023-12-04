@@ -21,7 +21,7 @@ li a {
     display: inline-block;
     color: white;
     text-align: center;
-    padding: 11px 18px;
+    padding: 11px 9px;
     padding-bottom: 13px;
     text-decoration: none;
 }
@@ -60,6 +60,10 @@ li a:hover {
     .logo {
         display: none;
     }
+}
+
+#mediumWell {
+    margin-right: 8px;
 }
 
 #mediumWell:hover {

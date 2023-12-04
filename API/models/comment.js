@@ -66,8 +66,8 @@ class Comment extends Model {
     }
 
     static async deleteById(id) {
-        Like.deleteByCommentId(id);
-        CommentAnswer.deleteByCommentId(id);
+        await Like.deleteByCommentId(id);
+        await CommentAnswer.deleteByCommentId(id);
         await super.delete(id, 'comments');
     }
 
