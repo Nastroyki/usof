@@ -50,6 +50,10 @@
     background-color: #0c9d68;
 }
 
+.up-edit-button {
+    margin-top: auto;
+}
+
 .up-delete-button {
     margin-top: auto;
     background-color: rgb(209, 62, 57);

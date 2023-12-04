@@ -41,6 +41,9 @@ const User = (props) => {
             </div>
             {(user.user.role === "admin") ?
                 <div className="up-buttons">
+                    <div className="up-button up-edit-button" onClick={() => window.location.href = "/useredit/" + props.user.id}>
+                        Edit
+                    </div>
                     <div className="up-button up-delete-button" onClick={deleteButton}>
                         Delete
                     </div>

@@ -5,13 +5,16 @@ import "../css/comment.css"
 import Answer from './Answer'
 import { Context } from "../index";
 import { deleteComment, newAnswer } from '../http/commentAPI'
+import EditComment from './EditComment'
 
 const Comment = (props) => {
     const { user } = useContext(Context);
+    const [edit, setEdit] = React.useState(false)
 
     const [addAnswer, setAddAnswer] = useState(false)
 
     let date = new Date(props.comment.publish_date)
+    let allowToEdit = (date.getTime() + 7200000) > Date.now()
     let strDate = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear()
 
     let saveNewAnswer = async () => {
@@ -60,7 +63,16 @@ const Comment = (props) => {
                     <div className="comment-date">
                         {strDate}
                     </div>
-                    <div style={{marginLeft: "auto"}}></div>
+                    <div style={{ marginLeft: "auto" }}></div>
+                    {(user.user.id === props.comment.user.id || user.user.role === "admin")
+                        && window.location.href.includes("/post/")
+                        && (allowToEdit || user.user.role === "admin") && !edit ?
+                        <div className="comment-button comment-edit-button" onClick={() => setEdit(true)}>
+                            Edit
+                        </div>
+                        :
+                        <div></div>
+                    }
                     {(user.user.id === props.comment.user.id || user.user.role === "admin") ?
                         <div className="comment-button comment-delete-button" onClick={e => deleteButton(e)}>
                             Delete
@@ -69,11 +81,15 @@ const Comment = (props) => {
                         <div></div>
                     }
                 </div>
-                <div className="comment-body">
-                    <div className="comment-text" style={{ whiteSpace: "pre-line" }}>
-                        {props.comment.content}
+                {!edit ?
+                    <div className="comment-body">
+                        <div className="comment-text" style={{ whiteSpace: "pre-line" }}>
+                            {props.comment.content}
+                        </div>
                     </div>
-                </div>
+                    :
+                    <EditComment comment={props.comment} />
+                }
                 <div className="answers-container">
                     {props.comment.answers.map(answer => (
                         <Answer answer={answer} key={answer.id} />

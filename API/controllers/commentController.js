@@ -12,7 +12,7 @@ const auth = require('../middleware/auth');
 router.get('/:id', async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.id);
-        if(comment.id == 0){
+        if (comment.id == 0) {
             return res.status(404).send("Comment not found");
         }
         res.status(200).json(comment);
@@ -103,12 +103,20 @@ router.patch('/:id', auth, async (req, res) => {
             return res.status(400).send("All input is required");
         }
 
-        const comment = await Comment.update({
-            id: req.params.id,
-            content
+        let comment = await Comment.findById(req.params.id);
+        if (comment.id == 0) {
+            return res.status(404).send("Comment not found");
+        }
+
+        const upgradedComment = await Comment.save({
+            id: comment.id,
+            user_id: comment.user_id,
+            post_id: comment.post_id,
+            publish_date: comment.publish_date,
+            content: content
         });
 
-        res.status(200).json(comment);
+        res.status(200).json(upgradedComment);
     } catch (err) {
         console.log(err);
     }
@@ -117,10 +125,10 @@ router.patch('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.id);
-        if(comment.id == 0){
+        if (comment.id == 0) {
             return res.status(404).send("Comment not found");
         }
-        if(comment.user_id != req.user.user_id){
+        if (comment.user_id != req.user.user_id) {
             return res.status(403).send("Access denied");
         }
         await Comment.deleteById(req.params.id);
@@ -133,7 +141,7 @@ router.delete('/:id', auth, async (req, res) => {
 router.delete('/:id/likes', auth, async (req, res) => {
     try {
         const like = await Like.deleteUserLikeComment(req.user.id, req.params.id);
-        if(like.id == 0){
+        if (like.id == 0) {
             return res.status(404).send("Like not found");
         }
         await Like.delete(like.id);

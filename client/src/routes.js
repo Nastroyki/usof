@@ -1,10 +1,12 @@
-import { LOGIN_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE, POST_ROUTE, ADMIN_ROUTE, CONFIRM_ROUTE, SELFEDIT_ROUTE, USER_ROUTE } from "./utils/consts";
+import { LOGIN_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE, POST_ROUTE, ADMIN_ROUTE, CONFIRM_ROUTE, SELFEDIT_ROUTE, USER_ROUTE, USER_EDIT_ROUTE } from "./utils/consts";
 import Auth from "./pages/Auth";
 import Posts from "./pages/Posts";
 import PostPage from "./pages/PostPage";
 import SelfEdit from "./pages/SelfEdit";
 import NewPost from "./pages/NewPost";
 import UserPage from "./pages/UserPage";
+import EditPost from "./components/EditPost";
+import EditUser from "./pages/EditUser";
 
 export const publicRoutes = [
     {
@@ -41,5 +43,9 @@ export const privateRoutes = [
     {
         path: SELFEDIT_ROUTE,
         Component: SelfEdit
+    },
+    {
+        path: USER_EDIT_ROUTE + '/:id',
+        Component: EditUser
     }
 ]

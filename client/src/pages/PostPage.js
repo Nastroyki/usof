@@ -63,25 +63,6 @@ const PostPage = () => {
 
     }
 
-    // let saveNewAnswer = async () => {
-    //     let answerContent = document.getElementsByClassName("answer-textarea")[0].value;
-    //     if (answerContent === "") {
-    //         document.getElementsByClassName("answer-error")[0].innerHTML = "All input is required";
-    //         return;
-    //     }
-    //     if (answerContent.length < 5) {
-    //         document.getElementsByClassName("answer-error")[0].innerHTML = "Comment must be at least 5 characters long";
-    //         return;
-    //     }
-    //     try {
-    //         await newAnswer(props.comment.id, answerContent);
-    //     } catch (err) {
-    //         document.getElementsByClassName("answer-error")[0].innerHTML = "Something went wrong";
-    //         return;
-    //     }
-    //     window.location.href = "/post/" + props.comment.post_id;
-    // }
-
     let auto_grow = (element) => {
         element.style.height = "5px";
         element.style.height = (element.scrollHeight) + "px";

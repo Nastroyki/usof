@@ -193,7 +193,7 @@ router.patch('/:id', auth, async (req, res) => {
 
         const updatedPost = await Post.save({
             id: req.params.id,
-            user_id: req.user.user_id,
+            user_id: post.user_id,
             publish_date: post.publish_date,
             status,
             title,

@@ -29,3 +29,8 @@ export const deleteComment = async (id) => {
     const { data } = await API.delete(`api/comments/${id}`)
     return data
 }
+
+export const patchComment = async (id, content) => {
+    const { data } = await API.patch(`api/comments/${id}`, { content })
+    return data
+}

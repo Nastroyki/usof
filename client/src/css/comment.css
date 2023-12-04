@@ -170,9 +170,62 @@
 
 .comment-delete-button {
     background-color: rgb(209, 62, 57);
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .comment-delete-button:hover {
     background-color: rgb(189, 51, 46);
+}
+
+
+.form-comment-section {
+    width: 100%;
+}
+
+.comment-input {
+    width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1.2rem;
+    resize: none;
+    background-color: unset;
+    color: black;
+}
+
+.comment-textarea {
+    resize: none;
+    overflow: hidden;
+    max-height: none;
+    min-height: 100px;
+    font-size: medium;
+}
+
+.nc-button {
+    padding: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 5px;
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+.nc-button:hover {
+    background-color: #0c9d68;
+}
+
+.cancel-comment-button {
+    background-color: rgb(209, 62, 57);
+    margin-left: 10px;
+}
+
+.cancel-comment-button:hover {
+    background-color: rgb(189, 51, 46);
+}
+
+.form-new-comment-section {
+    margin-top: 10px;
 }

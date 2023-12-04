@@ -8,32 +8,29 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const SelfEdit = () => {
+const SelfEdit = (props) => {
     const { user } = useContext(Context);
+    let userToEdit = user.user;
+
+    if (props.user) {
+        userToEdit = props.user;
+    }
+
+
     const [edit, setEdit] = useState(false);
 
-    const [login, setLogin] = useState(user.user.login);
-    const [fullName, setFullName] = useState(user.user.full_name);
-    const [email, setEmail] = useState(user.user.email);
+    const [login, setLogin] = useState(userToEdit.login);
+    const [fullName, setFullName] = useState(userToEdit.full_name);
+    const [email, setEmail] = useState(userToEdit.email);
 
     const nav = useNavigate();
 
     let avatar = "";
-    // export const changeUser = async (login, password, full_name, email, role, id) => {
-    //     const { data } = await API.patch(`api/users/${id}`, {
-    //         login,
-    //         password,
-    //         full_name,
-    //         email,
-    //         role
-    //     })
-    //     return data
-    // }
 
     const handleFileChange = async (event) => {
         try {
             await setAvatar(avatar);
-            await changeUser(login, "", fullName, email, "", user.user.id);
+            await changeUser(login, "", fullName, email, "", userToEdit.id);
             nav(0);
         }
         catch (e) {
@@ -48,7 +45,7 @@ const SelfEdit = () => {
 
     let selfDelete = async () => {
         if (window.confirm("Are you sure you want to delete this user?")) {
-            await deleteUser(user.user.id)
+            await deleteUser(userToEdit.id)
             localStorage.removeItem('token');
             window.location.href = "/";
         }
@@ -60,16 +57,16 @@ const SelfEdit = () => {
                 <div class=" image d-flex flex-column justify-content-center align-items-center">
                     {!edit ?
                         <div class="d-flex flex-column align-items-center">
-                            <UserImg pic={user.user.profile_picture} width="150" height="150" id="avatar" />
-                            <p id="login">{user.user.login}</p>
+                            <UserImg pic={userToEdit.profile_picture} width="150" height="150" id="avatar" />
+                            <p id="login">{userToEdit.login}</p>
 
-                            <p id="fullName">{user.user.full_name}</p>
+                            <p id="fullName">{userToEdit.full_name}</p>
 
-                            <p id="email">{user.user.email}</p>
+                            <p id="email">{userToEdit.email}</p>
 
-                            <p id="rating">Rating: {user.user.rating}</p>
+                            <p id="rating">Rating: {userToEdit.rating}</p>
 
-                            <p id="role">Role: {user.user.role}</p>
+                            <p id="role">Role: {userToEdit.role}</p>
                             <div id="line"></div>
                             <div id="edit" onClick={setEdit}>Edit</div>
                             <div id="delete" onClick={selfDelete}>Delete</div>
@@ -80,11 +77,11 @@ const SelfEdit = () => {
                                 <label for="avatar">Avatar</label><br></br>
                                 <input id="inpAvatar" type="file" name="avatar" onChange={e => (avatar = e.target.files[0])}></input><br></br><br></br>
                                 <label for="login">Login  </label>
-                                <input type="text" id="login" name="login" placeholder={user.user.login} value={login} onChange={e => setLogin(e.target.value)}></input><br></br>
+                                <input type="text" id="login" name="login" placeholder={userToEdit.login} value={login} onChange={e => setLogin(e.target.value)}></input><br></br>
                                 <label for="fullName">Full name  </label>
-                                <input type="text" id="fullName" name="fullName" placeholder={user.user.full_name} value={fullName} onChange={e => setFullName(e.target.value)}></input><br></br>
+                                <input type="text" id="fullName" name="fullName" placeholder={userToEdit.full_name} value={fullName} onChange={e => setFullName(e.target.value)}></input><br></br>
                                 <label for="email">Email  </label>
-                                <input type="text" id="email" name="email" placeholder={user.user.email} value={email} onChange={e => setEmail(e.target.value)}></input><br></br><br></br>
+                                <input type="text" id="email" name="email" placeholder={userToEdit.email} value={email} onChange={e => setEmail(e.target.value)}></input><br></br><br></br>
 
                                 <p id="regerror"></p>
                                 <input id="subButton" type="button" value="Submit" onClick={handleFileChange}></input>
