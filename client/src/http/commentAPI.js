@@ -24,3 +24,8 @@ export const newAnswer = async (id, content) => {
     const { data } = await API.post(`api/comments/${id}/answer`, { content })
     return data
 }
+
+export const deleteComment = async (id) => {
+    const { data } = await API.delete(`api/comments/${id}`)
+    return data
+}

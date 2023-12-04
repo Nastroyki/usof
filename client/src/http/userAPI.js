@@ -32,3 +32,8 @@ export const changeUser = async (login, password, full_name, email, role, id) =>
     })
     return data
 }
+
+export const deleteUser = async (id) => {
+    const { data } = await API.delete(`api/users/${id}`)
+    return data
+}

@@ -69,6 +69,7 @@
 }
 
 .answer-author-nickname {
+    cursor: pointer;
     font-size: 0.8rem;
     font-weight: 500;
     margin-right: 15px;
@@ -83,4 +84,24 @@
 .answer-text {
     font-size: 0.8rem;
     font-weight: 400;
+}
+
+.answer-button {
+    padding: 3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 5px;
+    background-color: #04AA6D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 0.6rem;
+}
+
+.answer-delete-button {
+    background-color: rgb(209, 62, 57);
+}
+
+.answer-button:hover {
+    background-color: rgb(189, 51, 46);
 }

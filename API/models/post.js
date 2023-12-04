@@ -41,13 +41,26 @@ class Post extends Model {
         return posts;
     }
 
-    static async findPostsPage(page, limit, tag = 0, status = '', sort = 'publish_date', order = 'DESC') {
+    static async findPostsPage(page, limit, tag = 0, status = '', sort = 'publish_date', order = 'DESC', user_id = 0) {
         let query = `SELECT * FROM posts`;
         if (status !== '') {
             query += ` WHERE status = '${status}'`;
         }
         if (tag !== 0) {
-            query += ` AND id IN (SELECT post_id FROM post_tag WHERE tag_id = ${tag})`;
+            if (status !== '') {
+                query += ` AND`;
+            } else {
+                query += ` WHERE`;
+            }
+            query += ` id IN (SELECT post_id FROM post_tag WHERE tag_id = ${tag})`;
+        }
+        if (user_id !== 0) {
+            if (status !== '' || tag !== 0) {
+                query += ` AND`;
+            } else {
+                query += ` WHERE`;
+            }
+            query += ` user_id = ${user_id}`;
         }
         if (sort === 'rating') {
             query += ` ORDER BY (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id AND likes.type = 'like') - (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.id AND likes.type = 'dislike') ${order}`;
@@ -59,6 +72,10 @@ class Post extends Model {
             db.query(query, (err, results) => {
                 if (err) {
                     reject(err);
+                }
+                if (!results) {
+                    resolve({ posts: [], len: 0, limit });
+                    return;
                 }
                 len = results.length;
 
@@ -100,7 +117,7 @@ class Post extends Model {
     }
 
     static async findByUserId(user_id) {
-        let results = await super.findBy('user_id', user_id, 'posts');
+        let results = await super.find(user_id, 'posts', 'user_id')
         let posts = [];
         for (let i = 0; i < results.length; i++) {
             let post = new Post();

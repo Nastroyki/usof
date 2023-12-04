@@ -1,7 +1,8 @@
 import { API } from './api';
 
-export const getPosts = async (page, tag, status, sort, order) => {
-    const { data } = await API.get(`api/posts?page=${page}&tag=${tag}&status=${status}&sort=${sort}&order=${order}`)
+export const getPosts = async (page, tag, status, sort, order, user_id) => {
+    const { data } = await API.get(`api/posts?page=${page}&tag=${tag}&status=${status}&sort=${sort}&order=${order}&user_id=${user_id}`)
+    console.log(`api/posts?page=${page}&tag=${tag}&status=${status}&sort=${sort}&order=${order}&user_id=${user_id}`);
     return data
 }
 
@@ -45,3 +46,12 @@ export const newComment = async (post_id, content) => {
     return data
 }
 
+export const patchPost = async (id, title, content, tags, status) => {
+    const { data } = await API.patch(`api/posts/${id}`, { title, content, tags, status })
+    return data
+}
+
+export const deletePost = async (id) => {
+    const { data } = await API.delete(`api/posts/${id}`)
+    return data
+}

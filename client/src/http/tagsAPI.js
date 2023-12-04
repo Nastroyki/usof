@@ -14,3 +14,8 @@ export const newTag= async (title, description) => {
     const { data } = await API.post(`api/tags`, {title, description})
     return data
 }
+
+export const getTag = async (id) => {
+    const { data } = await API.get(`api/tags/${id}`)
+    return data
+}

@@ -45,6 +45,7 @@ router.get('/', async (req, res) => {
 });
 router.get('/:id', async (req, res) => {
     try {
+        User.updateRating(req.params.id);
         const user = await User.findById(req.params.id);
         if(user.id == 0){
             return res.status(404).send("User not found");

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Context } from "../index";
 import "../css/selfedit.css"
 import UserImg from '../components/UserImg';
-import { changeUser, setAvatar } from '../http/userAPI';
+import { changeUser, deleteUser, setAvatar } from '../http/userAPI';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -46,6 +46,14 @@ const SelfEdit = () => {
         }
     };
 
+    let selfDelete = async () => {
+        if (window.confirm("Are you sure you want to delete this user?")) {
+            await deleteUser(user.user.id)
+            localStorage.removeItem('token');
+            window.location.href = "/";
+        }
+    }
+
     return (
         <div class="container p-3 d-flex justify-content-center" id="userbody">
             <div class="card p-4  " id="userbox">
@@ -63,7 +71,8 @@ const SelfEdit = () => {
 
                             <p id="role">Role: {user.user.role}</p>
                             <div id="line"></div>
-                            <div type="button" id="edit" onClick={setEdit}>Edit</div>
+                            <div id="edit" onClick={setEdit}>Edit</div>
+                            <div id="delete" onClick={selfDelete}>Delete</div>
                         </div>
                         :
                         <div class="d-flex flex-column align-items-center">

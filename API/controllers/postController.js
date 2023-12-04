@@ -12,14 +12,15 @@ const auth = require('../middleware/auth');
 
 router.get('/', async (req, res) => {
     try {
-        let { page, tag, status, sort, order } = req.query;
+        let { page, tag, status, sort, order, user_id } = req.query;
         let limit = 10;
         if (!page || page=="null") { page = 1; }
         if (!tag || tag=="null") { tag = 0; }
         if (!status || status=="null") { status = ''; }
         if (!sort || sort=="null") { sort = 'publish_date'; }
         if (!order || order=="null") { order = 'DESC'; }
-        const posts = await Post.findPostsPage(page, limit, tag, status, sort, order);
+        if (!user_id || user_id=="null") { user_id = 0; }
+        const posts = await Post.findPostsPage(page, limit, tag, status, sort, order, user_id);
         if (posts.length == 0) {
             return res.status(404).send("Posts not found");
         }
@@ -167,9 +168,9 @@ router.post('/:id/like', auth, async (req, res) => {
 
 router.patch('/:id', auth, async (req, res) => {
     try {
-        const { post_id, title, content, tags } = req.body;
+        const { title, content, tags, status } = req.body;
 
-        if (!(post_id && title && content && tags)) {
+        if (!(title && content && tags && status)) {
             return res.status(400).send("All input is required");
         }
         for (let i = 0; i < tags.length; i++) {
@@ -182,7 +183,7 @@ router.patch('/:id', auth, async (req, res) => {
             }
         }
 
-        const post = await Post.findById(post_id);
+        const post = await Post.findById(req.params.id);
         if (post.id == 0) {
             return res.status(404).send("Post not found");
         }
@@ -191,18 +192,19 @@ router.patch('/:id', auth, async (req, res) => {
         }
 
         const updatedPost = await Post.save({
-            id: post_id,
+            id: req.params.id,
             user_id: req.user.user_id,
-            publish_date: new Date(),
+            publish_date: post.publish_date,
+            status,
             title,
             content
         });
 
-        await PostTag.deleteByPostId(post_id);
+        await PostTag.deleteByPostId(req.params.id);
 
         for (let i = 0; i < tags.length; i++) {
             await PostTag.save({
-                post_id: post_id,
+                post_id: req.params.id,
                 tag_id: tags[i].id
             });
         }

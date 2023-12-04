@@ -17,13 +17,14 @@ const NavBar = observer(() => {
     const login = user.user.login
     return (
         <ul id='navbar'>
-            <li><Logo /></li>
-            <li><span style={{ fontFamily: "Oswald", color: "#04AA6D", fontSize: 29, fontWeight: 500 }}>edium<span id='mediumWell'>Code</span></span></li>
+            <li className='logo'><Logo /></li>
+            <li className='logo'><span style={{ fontFamily: "Oswald", color: "#04AA6D", fontSize: 29, fontWeight: 500 }}>edium<span id='mediumWell'>Code</span></span></li>
             <li><a href="/">Main page</a></li>
             {user.isAuth ?
                     <div>
                     <li style={{ float: "right" }}><a href="/" onClick={() => logOut()}>Logout</a></li>
                     <li style={{ float: "right" }}><a href="/selfedit"><UserImg pic={user.user.profile_picture} width="30" height="30" id="avatar" /><span> {login}</span></a></li>
+                    <li style={{ float: "right" }} className='user-role'>{user.user.role}</li>
                     </div>
                 :
                 <div>

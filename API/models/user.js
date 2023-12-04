@@ -106,6 +106,27 @@ class User extends Model {
         return user;
     }
 
+    static async updateRating(id) {
+        let user = await this.findById(id);
+        if (user.id == 0) {
+            return user;
+        }
+        let posts = await Post.findByUserId(id);
+        let comments = await Comment.findByUserId(id);
+        let rating = 0;
+        for (let i = 0; i < posts.length; i++) {
+            rating += await Like.postLikesCount(posts[i].id);
+            rating -= await Like.postDislikesCount(posts[i].id);
+        }
+        for (let i = 0; i < comments.length; i++) {
+            rating += await Like.commentLikesCount(comments[i].id);
+            rating -= await Like.commentDislikesCount(comments[i].id);
+        }
+        user.rating = rating;
+        await super.save(user, 'users');
+        return await this.findById(id);
+    }
+
     static async deleteById(id) {
         await Post.deleteByUserId(id);
         await Comment.deleteByUserId(id);

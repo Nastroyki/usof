@@ -1,10 +1,11 @@
-import { LOGIN_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE, POST_ROUTE, ADMIN_ROUTE, CONFIRM_ROUTE, SELFEDIT_ROUTE } from "./utils/consts";
+import { LOGIN_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE, POST_ROUTE, ADMIN_ROUTE, CONFIRM_ROUTE, SELFEDIT_ROUTE, USER_ROUTE } from "./utils/consts";
 import Auth from "./pages/Auth";
 import Posts from "./pages/Posts";
 import PostPage from "./pages/PostPage";
 import Admin from "./pages/Admin";
 import SelfEdit from "./pages/SelfEdit";
 import NewPost from "./pages/NewPost";
+import UserPage from "./pages/UserPage";
 
 export const publicRoutes = [
     {
@@ -26,6 +27,10 @@ export const publicRoutes = [
     {
         path: POST_ROUTE + '/:id',
         Component: PostPage
+    },
+    {
+        path: USER_ROUTE + '/:id',
+        Component: UserPage
     }
 ]
 

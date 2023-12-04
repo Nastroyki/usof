@@ -25,6 +25,16 @@ li a {
     padding-bottom: 13px;
     text-decoration: none;
 }
+
+.user-role {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 11px 18px;
+    padding-bottom: 13px;
+    text-decoration: none;
+}
+
 li div {
     display: inline-block;
 
@@ -44,6 +54,12 @@ li a:hover {
 
 .active:hover {
     background-color: #0c9d68;
+}
+
+@media (max-width:500px) {
+    .logo {
+        display: none;
+    }
 }
 
 #mediumWell:hover {

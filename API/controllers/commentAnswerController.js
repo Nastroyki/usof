@@ -44,10 +44,10 @@ router.delete('/:id', auth, async (req, res) => {
         if(commentAnswer.id == 0){
             return res.status(404).send("Comment answer not found");
         }
-        if(commentAnswer.user_id != req.user.id){
+        if(commentAnswer.user_id != req.user.user_id){
             return res.status(403).send("Access denied");
         }
-        await CommentAnswer.delete(req.params.id);
+        await CommentAnswer.deleteById(req.params.id);
         res.status(200).send("Success");
     } catch (err) {
         console.log(err);

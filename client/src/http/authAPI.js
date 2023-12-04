@@ -37,12 +37,10 @@ export const logout = async () => {
 
 export const check = async () => {
     try {
-        console.log("check");
         const {data} = await API.post('api/auth/refresh')
         localStorage.setItem('token', data.token)
         return jwtDecode(data.token)
     } catch (e) {
-        console.log(e);
         return null
     }
 }

@@ -4,7 +4,7 @@ import UserImg from './UserImg'
 import "../css/comment.css"
 import Answer from './Answer'
 import { Context } from "../index";
-import { newAnswer } from '../http/commentAPI'
+import { deleteComment, newAnswer } from '../http/commentAPI'
 
 const Comment = (props) => {
     const { user } = useContext(Context);
@@ -33,20 +33,41 @@ const Comment = (props) => {
         window.location.href = "/post/" + props.comment.post_id;
     }
 
+    let deleteButton = (event) => {
+        event.stopPropagation()
+        if (window.confirm("Are you sure you want to delete this comment?")) {
+            deleteComment(props.comment.id)
+        }
+        window.location.reload()
+    }
+
+    let goToUserPage = (event) => {
+        event.stopPropagation()
+        window.location.href = "/user/" + props.comment.user.id
+    }
+
     return (
         <div className="comment">
             <CommentLikes comment={props.comment} />
             <div className="comment-content">
                 <div className="comment-header">
-                    <div className="comment-author-avatar">
+                    <div className="comment-author-avatar" onClick={e => goToUserPage(e)}>
                         <UserImg pic={props.comment.user.profile_picture} width="30" height="30" />
                     </div>
-                    <div className="comment-author-nickname">
+                    <div className="comment-author-nickname" onClick={e => goToUserPage(e)}>
                         {props.comment.user.login}
                     </div>
                     <div className="comment-date">
                         {strDate}
                     </div>
+                    <div style={{marginLeft: "auto"}}></div>
+                    {(user.user.id === props.comment.user.id || user.user.role === "admin") ?
+                        <div className="comment-button comment-delete-button" onClick={e => deleteButton(e)}>
+                            Delete
+                        </div>
+                        :
+                        <div></div>
+                    }
                 </div>
                 <div className="comment-body">
                     <div className="comment-text" style={{ whiteSpace: "pre-line" }}>

@@ -6,8 +6,6 @@ import { privateRoutes, publicRoutes } from '../routes';
 
 const AppRouter = () => {
     const { user } = useContext(Context);
-
-    console.log(user);
     return (
         <Routes>
             {user && user.isAuth && privateRoutes.map(({ path, Component }) =>

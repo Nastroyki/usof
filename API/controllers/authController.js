@@ -166,6 +166,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/me', auth, async (req, res) => {
     try {
+        User.updateRating(req.user.user_id);
         const user = await User.findById(req.user.user_id);
         if (user.id == 0) {
             return res.status(404).send("User not found");

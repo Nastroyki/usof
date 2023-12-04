@@ -5,8 +5,9 @@ import { getUser } from '../http/userAPI'
 import { useSearchParams } from 'react-router-dom'
 import { Context } from "../index";
 import FloatingAddButton from '../components/FloatingAddButton'
+import { getTag } from '../http/tagsAPI'
 
-const Posts = () => {
+const Posts = (props) => {
     const { user } = useContext(Context);
     const [loading, setLoading] = useState(true)
 
@@ -19,17 +20,24 @@ const Posts = () => {
 
     const [page, setPage] = useState(searchParams.get("page"))
 
+    const [tagName, setTagName] = useState(null)
+
     let pageDelay = 1;
 
     useEffect(() => {
         pageDelay = page
     }, [page])
 
-    
+
     let tag = searchParams.get("tag")
     let status = searchParams.get("status")
     let sort = searchParams.get("sort")
     let order = searchParams.get("order")
+    let user_id = searchParams.get("userid")
+
+    if (props.user_id) {
+        user_id = props.user_id
+    }
 
     if (!page) {
         setPage(1)
@@ -88,8 +96,8 @@ const Posts = () => {
     }
 
     let update = async () => {
-        console.log(pageDelay, tag, status, sort, order);
-        let posts = await getPosts(pageDelay, tag, status, sort, order)
+        tagUpdate()
+        let posts = await getPosts(pageDelay, tag, status, sort, order, user_id)
         for (let i = 0; i < posts.posts.length; i++) {
             let user = await getUser(posts.posts[i].user_id)
             let tags = await getPostTags(posts.posts[i].id)
@@ -98,6 +106,13 @@ const Posts = () => {
             posts.posts[i].tags = tags
         }
         return posts
+    }
+
+    let tagUpdate = async () => {
+        if (tag) {
+            let tagData = await getTag(tag)
+            setTagName(tagData.title)
+        }
     }
 
     try {
@@ -125,32 +140,35 @@ const Posts = () => {
             <form>
                 <ul id='sortbar'>
                     <li><div className='wrapper'>
+                        {tagName ? <div>
+                            <input type="button" id="tag" name="sort" value="tag" onClick={() => {window.location.href = "/"}}></input><label htmlFor="tag">{tagName}</label>
+                        </div> : null}
                         <input type="button" id="all" name="status" value="all" onClick={uncheck}></input><label htmlFor="all">All</label>
                         <input type="radio" id="active" name="status" value="active" onClick={check}></input><label htmlFor="active">Active</label>
                         <input type="radio" id="solved" name="status" value="solved" onClick={check}></input><label htmlFor="solved">Solved</label>
                         <input type="radio" id="new" name="date" value="new" onClick={check}></input><label htmlFor="new">New</label>
                         <input type="radio" id="old" name="date" value="old" onClick={check}></input><label htmlFor="old">Old</label>
 
-                        </div></li>
+                    </div></li>
                 </ul>
             </form>
             <form>
                 <ul className='pagesbar'>
                     <li><div className='wrapper'>
-                        {page != 1 ? <div><input type="button" id="page1" name="page1" value="page1" onClick={pageMinus}></input><label htmlFor="page1">🡐</label></div> : <div style={{width: "54px"}}></div>}
+                        {page != 1 ? <div><input type="button" id="page1" name="page1" value="page1" onClick={pageMinus}></input><label htmlFor="page1">🡐</label></div> : <div style={{ width: "54px" }}></div>}
                         <input type="button" id="page2" name="page2" value="page2"></input><label htmlFor="page2"><span id="labelpage">{page}</span>/{pagesCount}</label>
-                        {page != pagesCount ? <div><input type="button" id="page3" name="page3" value="page3" onClick={pagePlus}></input><label htmlFor="page3">🡒</label></div> : <div style={{width: "54px"}}></div>}
+                        {page != pagesCount ? <div><input type="button" id="page3" name="page3" value="page3" onClick={pagePlus}></input><label htmlFor="page3">🡒</label></div> : <div style={{ width: "54px" }}></div>}
 
-                        </div></li>
+                    </div></li>
                 </ul>
             </form>
             {posts.map((post) => (
                 <Post key={post.id} post={post} />
             ))}
-            {user.isAuth ? 
-            <FloatingAddButton />
-            :
-            <div></div>
+            {user.isAuth ?
+                <FloatingAddButton />
+                :
+                <div></div>
             }
         </div>
     )

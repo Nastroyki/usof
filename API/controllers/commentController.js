@@ -34,15 +34,6 @@ router.get('/:id/likes', async (req, res) => {
     }
 });
 
-// router.get('/:id/like/:user_id', async (req, res) => {
-//     try {
-//         const result = await Like.userPostLike(req.params.user_id, req.params.id);
-//         res.status(200).json(result);
-//     } catch (err) {
-//         console.log(err);
-//     }
-// });
-
 router.get('/:id/likes/:user_id', async (req, res) => {
     try {
         const result = await Like.userCommentLike(req.params.user_id, req.params.id);
@@ -102,26 +93,7 @@ router.post('/:id/likes', auth, async (req, res) => {
         console.log(err);
     }
 });
-// router.post('/:id/like', auth, async (req, res) => {
-//     try {
-//         const { type } = req.body;
-//         Like.deleteUserLike(req.user.user_id, req.params.id);
-//         if (!(type == 'like' || type == 'dislike')) {
-//             return res.status(201).send("Deleted");
-//         }
-//         await Like.save({
-//             user_id: req.user.user_id,
-//             publish_date: new Date(),
-//             post_id: req.params.id,
-//             comment_id: null,
-//             type
-//         });
-//         res.status(201).send("Success");
-//     }
-//     catch (err) {
-//         console.log(err);
-//     }
-// });
+
 
 router.patch('/:id', auth, async (req, res) => {
     try {
@@ -148,10 +120,10 @@ router.delete('/:id', auth, async (req, res) => {
         if(comment.id == 0){
             return res.status(404).send("Comment not found");
         }
-        if(comment.user_id != req.user.id){
+        if(comment.user_id != req.user.user_id){
             return res.status(403).send("Access denied");
         }
-        await Comment.delete(req.params.id);
+        await Comment.deleteById(req.params.id);
         res.status(200).send("Success");
     } catch (err) {
         console.log(err);

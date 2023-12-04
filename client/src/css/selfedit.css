@@ -5,7 +5,7 @@
 #userbox {
     background-color: #333;
     border-radius: 17px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     box-shadow: 2px 2px 0px 2px #04AA6D;
 }
 
@@ -26,13 +26,28 @@ input {
     padding-left: 0px;
 }
 #edit {
-    padding: 8px 80px;
+    cursor: pointer;
+    width: 100%;
+    padding: 4px 80px;
     border-radius: 20px;
     background-color: #292929;
 }
 
 #edit:hover {
     background-color: #111;
+}
+
+#delete {
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    padding: 4px 80px;
+    border-radius: 20px;
+    background-color: #292929;
+}
+
+#delete:hover {
+    background-color: rgb(209, 62, 57);
 }
 
 #subButton {
