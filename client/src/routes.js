@@ -2,7 +2,6 @@ import { LOGIN_ROUTE, POSTS_ROUTE, REGISTRATION_ROUTE, POST_ROUTE, ADMIN_ROUTE, 
 import Auth from "./pages/Auth";
 import Posts from "./pages/Posts";
 import PostPage from "./pages/PostPage";
-import Admin from "./pages/Admin";
 import SelfEdit from "./pages/SelfEdit";
 import NewPost from "./pages/NewPost";
 import UserPage from "./pages/UserPage";
@@ -38,10 +37,6 @@ export const privateRoutes = [
     {
         path: POSTS_ROUTE + '/new',
         Component: NewPost
-    },
-    {
-        path: ADMIN_ROUTE,
-        Component: Admin
     },
     {
         path: SELFEDIT_ROUTE,
