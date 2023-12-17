@@ -11,6 +11,10 @@ Made By Maksym Cherednychenko
 ## USOF Backend
 It makes registration, posting, commenting, liking and adding categories to posts possible.
 
+<a href="https://www.youtube.com/watch?v=RredVvI5kaI">
+  <img alt="youtube channel" title="Youtube" src="https://custom-icon-badges.demolab.com/badge/MediumCode-red.svg?logo=slyyoutube&logoColor=white"/>
+</a>
+
 ### Requirements
 - NodeJS
 - NPM
